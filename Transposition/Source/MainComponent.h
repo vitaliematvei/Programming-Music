@@ -2,7 +2,8 @@
 
 #include <JuceHeader.h>
 
-class MainComponent : public juce::Component
+class MainComponent : public juce::Component,
+	public juce::Button::Listener
 {
 public:
 	//==============================================================================
@@ -11,6 +12,9 @@ public:
 	//==============================================================================
 	void paint(juce::Graphics&) override;
 	void resized() override;
+
+	void buttonClicked(juce::Button*) override;
+	juce::String calculateInterval();
 
 private:
 	//==============================================================================
@@ -21,6 +25,11 @@ private:
 	juce::Label intervalLabel;
 	juce::Label inputIntervalLabel;
 	juce::Label inputIntervalText;
+
+	juce::TextButton calculateBtn;
+
+	juce::Label resultLabel;
+	juce::Label showResultLabel;
 
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainComponent)

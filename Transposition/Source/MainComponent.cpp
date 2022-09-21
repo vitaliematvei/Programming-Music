@@ -23,7 +23,7 @@ MainComponent::MainComponent()
 	inputNoteText.setExplicitFocusOrder(0);
 
 
-	//===========================Interval input=====================================
+	//===========================Interval input===================================
 	addAndMakeVisible(intervalLabel);
 	intervalLabel.setFont(juce::Font(12.0f));
 	intervalLabel.setText("Enter interval in semitones: ", juce::dontSendNotification);
@@ -42,6 +42,26 @@ MainComponent::MainComponent()
 	inputIntervalText.setColour(juce::Label::textWhenEditingColourId, juce::Colours::black);
 	inputIntervalText.setExplicitFocusOrder(1);
 
+
+	//===========================Button ot calculate===============================
+	addAndMakeVisible(calculateBtn);
+	calculateBtn.setColour(juce::TextButton::buttonColourId, juce::Colours::grey);
+	calculateBtn.setButtonText("Calculate");
+	calculateBtn.addListener(this);
+
+
+	//===========================Show result=======================================
+	addAndMakeVisible(resultLabel);
+	resultLabel.setFont(juce::Font(12.0f));
+	resultLabel.setText("Transposed note is: ", juce::dontSendNotification);
+	resultLabel.setColour(juce::Label::textColourId, juce::Colours::black);
+
+	addAndMakeVisible(showResultLabel);
+	showResultLabel.setFont(juce::Font(12.0f, juce::Font::bold));
+	showResultLabel.setText("---", juce::dontSendNotification);
+	showResultLabel.setColour(juce::Label::textColourId, juce::Colours::black);
+	showResultLabel.setColour(juce::Label::outlineColourId, juce::Colours::grey);
+
 	setSize(380, 150);
 }
 
@@ -59,4 +79,25 @@ void MainComponent::resized()
 
 	intervalLabel.setBounds(10, 40, getWidth() - 20, 30);
 	inputIntervalText.setBounds(240, 45, getWidth() - 255, 20);
+
+	calculateBtn.setBounds(127, 80, getWidth() - 255, 30);
+
+	resultLabel.setBounds(10, 120, getWidth() - 20, 30);
+	showResultLabel.setBounds(240, 125, getWidth() - 255, 20);
+}
+
+void MainComponent::buttonClicked(juce::Button*)
+{
+	showResultLabel.setText(calculateInterval(), juce::dontSendNotification);
+}
+
+juce::String MainComponent::calculateInterval()
+{
+	/*
+	juce::CharPointer_UTF16** p1, ** p2;
+	juce::CharPointer_UTF8* table[] = { 'C', "C#", "D", "D#",
+							  "E", "F", "F#", "G",
+							  "G#", "A", "A#", "B" };
+							  */
+	return juce::String("APASAT");
 }
