@@ -65,13 +65,13 @@ MainComponent::MainComponent()
 	setSize(380, 150);
 }
 
-
 //==============================================================================
 void MainComponent::paint(juce::Graphics& g)
 {
 	g.fillAll(juce::Colour(240, 240, 240));
 }
 
+//==============================================================================
 void MainComponent::resized()
 {
 	noteLabel.setBounds(10, 10, getWidth() - 20, 30);
@@ -86,18 +86,42 @@ void MainComponent::resized()
 	showResultLabel.setBounds(240, 125, getWidth() - 255, 20);
 }
 
+//==============================================================================
 void MainComponent::buttonClicked(juce::Button*)
 {
 	showResultLabel.setText(calculateInterval(), juce::dontSendNotification);
 }
 
+//==============================================================================
 juce::String MainComponent::calculateInterval()
 {
-	/*
-	juce::CharPointer_UTF16** p1, ** p2;
-	juce::CharPointer_UTF8* table[] = { 'C', "C#", "D", "D#",
+	juce::String result;
+	const char* table[12] = { "C", "C#", "D", "D#",
 							  "E", "F", "F#", "G",
 							  "G#", "A", "A#", "B" };
-							  */
-	return juce::String("APASAT");
+
+	juce::String inputStr = inputNoteText.getText().toUpperCase();
+	int noteIndex = inputIntervalText.getText().getIntValue();
+
+	for (int i = 0; i < 12; i++)
+		if (!inputStr.containsAnyOf(table[i])) {
+			result = "Could not find!";
+		}
+		else {
+			while (noteIndex < 0)
+				noteIndex += 12;
+			while (noteIndex >= 12)
+				noteIndex -= 12;
+
+			for (int i = 0; i < 12; i++)
+				if (inputStr.containsAnyOf(table[i]))
+					noteIndex += i;
+			if (noteIndex > 11)
+				noteIndex -= 12;
+
+			result = table[noteIndex];
+			break;
+		}
+
+	return result;
 }
