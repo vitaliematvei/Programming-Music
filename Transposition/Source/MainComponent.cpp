@@ -117,7 +117,7 @@ juce::String MainComponent::calculateInterval()
 			for (int i = 0; i < 12; i++)
 				if (inputStr.containsWholeWord(table[i]))
 					noteIndex += i;
-			if (noteIndex > 12)
+			if (noteIndex >= 12)
 				noteIndex -= 12;
 
 			result = table[noteIndex];
