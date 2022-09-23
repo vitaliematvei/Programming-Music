@@ -3,6 +3,7 @@
 //==============================================================================
 MainComponent::MainComponent()
 {
+
 	//===========================Note input=====================================
 	addAndMakeVisible(noteLabel);
 	noteLabel.setFont(juce::Font(12.0f));
@@ -104,7 +105,7 @@ juce::String MainComponent::calculateInterval()
 	int noteIndex = inputIntervalText.getText().getIntValue();
 
 	for (int i = 0; i < 12; i++)
-		if (!inputStr.containsAnyOf(table[i])) {
+		if (!inputStr.containsWholeWord(table[i])) {
 			result = "Could not find!";
 		}
 		else {
@@ -114,9 +115,9 @@ juce::String MainComponent::calculateInterval()
 				noteIndex -= 12;
 
 			for (int i = 0; i < 12; i++)
-				if (inputStr.containsAnyOf(table[i]))
+				if (inputStr.containsWholeWord(table[i]))
 					noteIndex += i;
-			if (noteIndex > 11)
+			if (noteIndex > 12)
 				noteIndex -= 12;
 
 			result = table[noteIndex];
